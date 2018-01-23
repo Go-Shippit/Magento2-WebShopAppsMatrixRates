@@ -92,8 +92,10 @@ class Methods extends \Shippit\Shipping\Model\Config\Source\Shipping\Methods
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
         $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
         $connection = $resource->getConnection();
+        $tableName = $resource->getTableName('webshopapps_matrixrate');
 
-        $query = 'SELECT `pk`, `shipping_method` FROM `webshopapps_matrixrate`';
+        $query = $connection->select()
+            ->from($tableName, array('pk', 'shipping_method'));
 
         return $connection->fetchAll($query);
     }
