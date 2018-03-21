@@ -17,6 +17,7 @@
     <module name="Shippit_WebShopAppsMatrixRates" setup_version="1.0.0">
         <sequence>
             <module name="Shippit_Shipping" />
+            <module name="WebShopApps_MatrixRate" />
         </sequence>
     </module>
 </config>

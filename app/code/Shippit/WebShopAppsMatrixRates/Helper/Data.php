@@ -16,32 +16,23 @@
 
 namespace Shippit\WebShopAppsMatrixRates\Helper;
 
-use \Magento\Framework\App\Config\ScopeConfigInterface;
-
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
-    const XML_PATH_SETTINGS = 'shippit/addon_webshopappsmatrixrates/active';
+    const XML_PATH_SETTINGS = 'shippit/addon_webshopappsmatrixrates';
     const XML_PATH_MATRIXRATE = 'carriers/matrixrate/active';
 
-    /**
-     * @var \Magento\Framework\Module\Manager
-     */
-    protected $_moduleManager;
-
-    protected $_scopeConfig;
-    protected $_moduleList;
+    protected $scopeConfig;
+    protected $moduleList;
 
     /**
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      */
     public function __construct(
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-        \Magento\Framework\Module\ModuleList $moduleList,
-        \Magento\Framework\Module\Manager $moduleManager
+        \Magento\Framework\Module\ModuleList $moduleList
     ) {
-        $this->_scopeConfig = $scopeConfig;
-        $this->_moduleList = $moduleList;
-        $this->_moduleManager = $moduleManager;
+        $this->scopeConfig = $scopeConfig;
+        $this->moduleList = $moduleList;
     }
 
     /**
@@ -50,9 +41,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      * @param   string $key
      * @return  string
      */
-    public function getValue($path, $scope = 'website')
+    public function getValue($key, $scope = 'website')
     {
-        return $this->_scopeConfig->getValue($path, $scope);
+        $path = self::XML_PATH_SETTINGS . $key;
+
+        return $this->scopeConfig->getValue($path, $scope);
     }
 
     /**
@@ -60,19 +53,14 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function isActive()
     {
-        return self::getValue(self::XML_PATH_SETTINGS);
+        return self::getValue('active');
     }
 
     public function getModuleVersion()
     {
-        $version = $this->_moduleList
+        $version = $this->moduleList
             ->getOne('WebShopApps_MatrixRate')['setup_version'];
 
         return $version;
-    }
-
-    public function isWebshopappsMatrixrateActive()
-    {
-        return self::getValue(self::XML_PATH_MATRIXRATE);
     }
 }

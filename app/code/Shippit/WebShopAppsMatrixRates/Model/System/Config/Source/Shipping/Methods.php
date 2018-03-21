@@ -9,33 +9,41 @@ class Methods extends \Shippit\Shipping\Model\Config\Source\Shipping\Methods
     /**
      * @var \Shippit\WebShopAppsMatrixRates\Helper\Data
      */
-    protected $_helper;
+    protected $helper;
 
     /**
      * Core store config
      *
      * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
-    protected $_scopeConfig;
+    protected $scopeConfig;
 
     /**
      * @var \Magento\Shipping\Model\Config
      */
-    protected $_shippingConfig;
+    protected $shippingConfig;
+
+    /**
+     * @var \Magento\Framework\App\ResourceConnection
+     */
+    protected $resourceConnection;
 
     /**
      * @param \Shippit\WebShopAppsMatrixRates\Helper\Data $helper
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      * @param \Magento\Shipping\Model\Config $shippingConfig
+     * @param \Magento\Framework\App\ResourceConnection $resourceConnection
      */
     public function __construct(
         \Shippit\WebShopAppsMatrixRates\Helper\Data $helper,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-        \Magento\Shipping\Model\Config $shippingConfig
+        \Magento\Shipping\Model\Config $shippingConfig,
+        \Magento\Framework\App\ResourceConnection $resourceConnection
     ) {
-        $this->_helper = $helper;
-        $this->_scopeConfig = $scopeConfig;
-        $this->_shippingConfig = $shippingConfig;
+        $this->helper = $helper;
+        $this->scopeConfig = $scopeConfig;
+        $this->shippingConfig = $shippingConfig;
+        $this->resourceConnection = $resourceConnection;
     }
 
     /**
@@ -48,10 +56,9 @@ class Methods extends \Shippit\Shipping\Model\Config\Source\Shipping\Methods
     {
         $optionsArray = parent::toOptionArray($showPlaceholder, $excludeShippit);
 
-        // If the webshopappsmodule is installed,
-        // fetch the available methods from their tables
-        if (!$this->_helper->isActive()
-            || !$this->_helper->isWebshopappsMatrixrateActive()) {
+        // If the customisation is not active,
+        // return the parent optionsArray
+        if (!$this->helper->isActive()) {
             return $optionsArray;
         }
 
@@ -68,7 +75,10 @@ class Methods extends \Shippit\Shipping\Model\Config\Source\Shipping\Methods
         $matrixRateRates = $this->getWsaMatrixRateRates();
 
         // Get the matrix rate name
-        $title = $this->_scopeConfig->getValue('carriers/matrixrate/title', 'website');
+        $title = $this->scopeConfig->getValue(
+            'carriers/matrixrate/title',
+            'website'
+        );
 
         foreach ($matrixRateRates as $matrixRateRate) {
             $optionsArray[] = array(
@@ -89,10 +99,8 @@ class Methods extends \Shippit\Shipping\Model\Config\Source\Shipping\Methods
 
     protected function getWsaMatrixRateRates()
     {
-        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
-        $connection = $resource->getConnection();
-        $tableName = $resource->getTableName('webshopapps_matrixrate');
+        $connection = $this->resourceConnection->getConnection();
+        $tableName = $this->resourceConnection->getTableName('webshopapps_matrixrate');
 
         $query = $connection->select()
             ->from($tableName, array('pk', 'shipping_method'));
