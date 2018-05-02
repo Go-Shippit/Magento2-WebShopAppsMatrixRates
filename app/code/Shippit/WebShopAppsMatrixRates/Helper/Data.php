@@ -18,8 +18,7 @@ namespace Shippit\WebShopAppsMatrixRates\Helper;
 
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
-    const XML_PATH_SETTINGS = 'shippit/addon_webshopappsmatrixrates';
-    const XML_PATH_MATRIXRATE = 'carriers/matrixrate/active';
+    const XML_PATH_SETTINGS = 'shippit/addon_webshopappsmatrixrates/';
 
     protected $scopeConfig;
     protected $moduleList;

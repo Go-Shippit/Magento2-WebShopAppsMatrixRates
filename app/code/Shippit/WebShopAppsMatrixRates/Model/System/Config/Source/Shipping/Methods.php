@@ -44,6 +44,8 @@ class Methods extends \Shippit\Shipping\Model\Config\Source\Shipping\Methods
         $this->scopeConfig = $scopeConfig;
         $this->shippingConfig = $shippingConfig;
         $this->resourceConnection = $resourceConnection;
+
+        parent::__construct($scopeConfig, $shippingConfig);
     }
 
     /**
