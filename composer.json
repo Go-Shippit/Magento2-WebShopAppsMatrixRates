@@ -1,0 +1,30 @@
+{
+    "name": "shippit/magento2-addon-webshopapps-matrixrates",
+    "description": "Shippit Integration Module Addon - WebShopApps MatrixRates",
+    "type": "magento2-module",
+    "version": "1.0.1",
+    "homepage": "https://www.shippit.com",
+    "support": {
+        "issues": "https://support.shippit.com"
+    },
+    "authors": [
+        {
+            "name": "Matthew Muscat",
+            "email": "matthew@mamis.com.au"
+        }
+    ],
+    "require": {
+        "shippit/shipping": "^1.4.0"
+    },
+    "require-dev": {
+        "magento-ecg/coding-standard": "^3.1"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Shippit\\WebShopAppsMatrixRates\\": ""
+        }
+    }
+}
