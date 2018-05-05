@@ -12,7 +12,7 @@ composer config repositories.shippit/magento2-addon-webshopapps-matrixrates vcs 
 2. Update your composer.json
 
 ```
-composer require "shippit/magento2-addon-webshopapps-matrixrates": "^1.0.0"
+composer require "shippit/magento2-addon-webshopapps-matrixrates:^1.0.0"
 ```
 
 3. Enable the module and clear static content.
