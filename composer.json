@@ -2,7 +2,7 @@
     "name": "shippit/magento2-addon-webshopapps-matrixrates",
     "description": "Shippit Integration Module Addon - WebShopApps MatrixRates",
     "type": "magento2-module",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "homepage": "https://www.shippit.com",
     "support": {
         "issues": "https://support.shippit.com"
