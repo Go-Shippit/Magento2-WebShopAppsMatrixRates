@@ -58,7 +58,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     public function getModuleVersion()
     {
         $version = $this->moduleList
-            ->getOne('WebShopApps_MatrixRate')['setup_version'];
+            ->getOne('Shippit_WebShopAppsMatrixRates')['setup_version'];
 
         return $version;
     }

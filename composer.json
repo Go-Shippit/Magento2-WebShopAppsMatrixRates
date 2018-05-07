@@ -14,7 +14,8 @@
         }
     ],
     "require": {
-        "shippit/shipping": "^1.4.0"
+        "shippit/shipping": "^1.4.0",
+        "webshopapps/module-matrixrate": "*"
     },
     "require-dev": {
         "magento-ecg/coding-standard": "^3.1"
